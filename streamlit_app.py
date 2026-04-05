@@ -32,27 +32,27 @@ if not df.empty:
     st.subheader("📊 Análise Visual de Desempenho")
     col1, col2 = st.columns(2)
 
-   # Transformamos a Classe Funcional em Texto (String) para tirar o degradê
-df['Classe Funcional'] = df['Classe Funcional'].astype(str)
+    # Transformamos a Classe Funcional em Texto (String) para tirar o degradê
+    df['Classe Funcional'] = df['Classe Funcional'].astype(str)
 
-with col1:
-    # Forçamos a coluna a ser número para evitar o erro das datas
-    df['Sprint 20m'] = pd.to_numeric(df['Sprint 20m'], errors='coerce')
-    fig_sprint = px.bar(df, x='Atleta', y='Sprint 20m',
-                        title='Velocidade: Sprint 20m (Menor = Melhor)',
-                        color='Classe Funcional', text_auto=True)
-    # Código que resolve o problema dos nomes sobrepostos (inclina em 45 graus)
-    fig_sprint.update_xaxes(tickangle=-45)
-    st.plotly_chart(fig_sprint, use_container_width=True)
+    with col1:
+        # Forçamos a coluna a ser número para evitar o erro das datas
+        df['Sprint 20m'] = pd.to_numeric(df['Sprint 20m'], errors='coerce')
+        fig_sprint = px.bar(df, x='Atleta', y='Sprint 20m',
+                            title='Velocidade: Sprint 20m (Menor = Melhor)',
+                            color='Classe Funcional', text_auto=True)
+        # Código que resolve o problema dos nomes sobrepostos (inclina em 45 graus)
+        fig_sprint.update_xaxes(tickangle=-45)
+        st.plotly_chart(fig_sprint, use_container_width=True)
 
-with col2:
-    # Forçamos a coluna a ser número 
-    df['Arremesso'] = pd.to_numeric(df['Arremesso'], errors='coerce')
-    fig_forca = px.bar(df, x='Atleta', y='Arremesso', 
-                       title='Força: Arremesso Med. Ball (Maior = Melhor)',
-                       color='Classe Funcional', text_auto=True)
-    # Código que resolve o problema dos nomes sobrepostos
-    fig_forca.update_xaxes(tickangle=-45)
-    st.plotly_chart(fig_forca, use_container_width=True)
+    with col2:
+        # Forçamos a coluna a ser número 
+        df['Arremesso'] = pd.to_numeric(df['Arremesso'], errors='coerce')
+        fig_forca = px.bar(df, x='Atleta', y='Arremesso', 
+                           title='Força: Arremesso Med. Ball (Maior = Melhor)',
+                           color='Classe Funcional', text_auto=True)
+        # Código que resolve o problema dos nomes sobrepostos
+        fig_forca.update_xaxes(tickangle=-45)
+        st.plotly_chart(fig_forca, use_container_width=True)
 else:
     st.warning("Nenhum dado encontrado ou erro na conexão com a planilha.")
