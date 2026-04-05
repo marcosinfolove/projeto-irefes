@@ -10,7 +10,7 @@ st.markdown("Painel integrado automaticamente com o Google Sheets.")
 
 # --- CONEXÃO COM O GOOGLE SHEETS ---
 # SUBSTITUA O TEXTO ABAIXO PELO LINK DE COMPARTILHAMENTO DA SUA PLANILHA
-URL_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_4awyPRfqe_rWxYZibAEo91cOFaiUPRKigBAanzMZUzdoM4kNAFfDQ0xprCnfCknO1gsD8Cx_onHO/pub?output=csv"
+URL_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_4awyPRfqe_rWxYZibAEo91cOFaiUPRKigBAanzMZUzdoM4kNAFfDQ0xprCnfCknO1gsD8Cx_onHO/pub?gid=0&single=true&output=csv"
 
 @st.cache_data(ttl=60) # Atualiza os dados a cada 60 segundos
 def carregar_dados(url):
