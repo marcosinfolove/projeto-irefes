@@ -30,10 +30,10 @@ st.markdown("""
 st.title("🏉 Sistema de BI com Acessibilidade - IREFES")
 st.markdown("Painel de Performance e Acompanhamento Físico para Rugby em Cadeira de Rodas.")
 
-# 1. LINK DE PUBLICAÇÃO EM CSV (Mantém este igual, pois ele alimenta os gráficos)
+# 1. LINK DE PUBLICAÇÃO EM CSV (Alimenta os gráficos)
 URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_4awyPRfqe_rWxYZibAEo91cOFaiUPRKigBAanzMZUzdoM4kNAFfDQ0xprCnfCknO1gsD8Cx_onHO/pub?gid=0&single=true&output=csv"
 
-# 2. LINK DA PLANILHA EDITÁVEL (Cole o link que você copiou no botão "Compartilhar" entre as aspas abaixo)
+# 2. LINK DA PLANILHA EDITÁVEL (Permite edição assistida direta)
 URL_PLANILHA_EDITAVEL = "https://docs.google.com/spreadsheets/d/1j_AdsLaoLv3lmcsT9Oe5FonzViKvzYelVx9cNcDWogs/edit?usp=sharing"
 
 @st.cache_data(ttl=60)
@@ -64,13 +64,14 @@ if not df.empty:
     st.sidebar.markdown(f'<a href="{URL_PLANILHA_EDITAVEL}" target="_blank" class="link-button">📂 Abrir Planilha de Coleta</a>', unsafe_allow_html=True)
     
     st.sidebar.markdown("""
-    **Instruções para Atletas PcD:**
+    **Instruções de Voz (O jeito mais fácil para atletas PcD):**
     
     1. Clique no botão verde acima para abrir a planilha.
-    2. No Google Sheets, abra o painel do **Gemini/Assistente** no menu superior ou lateral.
-    3. Use a caixa de prompt de texto ou use **Windows + H** para ditar comandos.
-    4. **Diga ou digite:** *"Adicione uma linha para o João com Sprint 8.5 e Arremesso 4.2"*.
-    5. O assistente inteligente escreve na planilha por você, eliminando a barreira de cliques manuais em células pequenas!
+    2. No Google Sheets, abra o painel do **Gemini/Assistente** (menu superior ou barra lateral direita).
+    3. Clique no campo de chat (campo de texto único e grande).
+    4. Ative o reconhecimento por voz nativo pressionando **Windows + H** no seu teclado.
+    5. **Diga de forma clara:** *"Adicione uma linha para o João com Sprint 8.5 e Arremesso 4.2"*.
+    6. O assistente processa sua frase e popula os dados na grade automaticamente, eliminando a barreira de tentar clicar em células pequenas!
     """)
 
     if atleta_selecionado == "Todos":
@@ -108,6 +109,7 @@ if not df.empty:
             "Valor": [dados_atleta['Sprint 20m'], media_sprint, dados_atleta['Arremesso'], media_arremesso]
         })
         
+        # Mapeando os nomes para português no hover com o parâmetro "labels"
         fig_comp = px.bar(comp_df, x="Métrica", y="Valor", color="Referência", barmode="group",
                          labels={"Valor": "Pontuação", "Referência": "Tipo de Medição"},
                          color_discrete_map={dados_atleta['Atleta']: '#00CC96', 'Média Equipe': '#AB63FA'})
