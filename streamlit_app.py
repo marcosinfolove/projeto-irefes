@@ -5,7 +5,7 @@ import plotly.express as px
 # --- CONFIGURAÇÃO DA PÁGINA ---
 st.set_page_config(page_title="Dashboard IREFES - Rugby CR", layout="wide")
 
-# Estilo personalizado (Alto Contraste)
+# Estilo personalizado de alto contraste para melhorar usabilidade e acessibilidade
 st.markdown("""
     <style>
     .main { font-size: 1.15rem; }
@@ -22,6 +22,7 @@ st.markdown("""
         font-weight: bold;
         margin-bottom: 20px;
         text-align: center;
+        width: 100%;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -29,9 +30,11 @@ st.markdown("""
 st.title("🏉 Sistema de BI com Acessibilidade - IREFES")
 st.markdown("Painel de Performance e Acompanhamento Físico para Rugby em Cadeira de Rodas.")
 
-# LINKS DAS FONTES DE DADOS
+# 1. LINK DE PUBLICAÇÃO EM CSV (Mantém este igual, pois ele alimenta os gráficos)
 URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_4awyPRfqe_rWxYZibAEo91cOFaiUPRKigBAanzMZUzdoM4kNAFfDQ0xprCnfCknO1gsD8Cx_onHO/pub?gid=0&single=true&output=csv"
-URL_PLANILHA_EDITAVEL = "https://docs.google.com/spreadsheets/d/1j_AdsLaoLv3lmcstT9Oe5FonzViKvZYelVx9cNCdWogs/edit?usp=sharing"
+
+# 2. LINK DA PLANILHA EDITÁVEL (Cole o link que você copiou no botão "Compartilhar" entre as aspas abaixo)
+URL_PLANILHA_EDITAVEL = "https://docs.google.com/spreadsheets/d/1j_AdsLaoLv3lmcsT9Oe5FonzViKvzYelVx9cNcDWogs/edit?usp=sharing"
 
 @st.cache_data(ttl=60)
 def carregar_dados(url):
@@ -55,23 +58,21 @@ if not df.empty:
     
     st.sidebar.divider()
     
-    # SEÇÃO DE EXPLICAÇÃO QUE VOCÊ PEDIU
     st.sidebar.markdown("### ♿ Coleta Assistida (I.A. Workspace)")
     
-    # Botão de direcionamento direto para a planilha
+    # Botão dinâmico que direciona para a sua planilha real compartilhada
     st.sidebar.markdown(f'<a href="{URL_PLANILHA_EDITAVEL}" target="_blank" class="link-button">📂 Abrir Planilha de Coleta</a>', unsafe_allow_html=True)
     
     st.sidebar.markdown("""
     **Instruções para Atletas PcD:**
     
-    1. Clique no botão acima para abrir a base de dados.
-    2. No Google Sheets, abra o painel do **Gemini/Assistente** à direita.
-    3. Clique no campo de chat e use **Windows + H** para ditar comandos.
-    4. **Exemplo:** *"Adicione uma linha para o Marcos com Sprint 8.5"*.
-    5. O sistema processa sua voz e insere os dados sem você precisar clicar em células pequenas.
+    1. Clique no botão verde acima para abrir a planilha.
+    2. No Google Sheets, abra o painel do **Gemini/Assistente** no menu superior ou lateral.
+    3. Use a caixa de prompt de texto ou use **Windows + H** para ditar comandos.
+    4. **Diga ou digite:** *"Adicione uma linha para o João com Sprint 8.5 e Arremesso 4.2"*.
+    5. O assistente inteligente escreve na planilha por você, eliminando a barreira de cliques manuais em células pequenas!
     """)
 
-    # --- RESTANTE DO DASHBOARD (Gráficos e Filtros) ---
     if atleta_selecionado == "Todos":
         st.subheader("📋 Tabela Geral de Resultados")
         st.dataframe(df, use_container_width=True)
@@ -85,6 +86,7 @@ if not df.empty:
         with col2:
             fig_forca = px.bar(df, x='Atleta', y='Arremesso', title='Força (Maior = Melhor)', color='Classe Funcional', text_auto=True)
             st.plotly_chart(fig_forca, use_container_width=True)
+            
     else:
         st.subheader(f"📊 Evolução Individual: {atleta_selecionado}")
         dados_atleta = df[df['Atleta'] == atleta_selecionado].iloc[0]
