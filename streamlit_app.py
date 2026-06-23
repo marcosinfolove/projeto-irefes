@@ -68,9 +68,21 @@ if not df.empty:
     atleta_selecionado = st.sidebar.selectbox("Selecione o Atleta:", lista_atletas)
     
     st.sidebar.divider()
-    st.sidebar.header("🤖 Configurações de I.A.")
-    st.sidebar.markdown("[Como obter uma chave Gemini API gratuita?](https://aistudio.google.com/)", unsafe_allow_html=True)
-    gemini_key = st.sidebar.text_input("Chave API do Gemini:", type="password", placeholder="Cole sua chave AI Studio aqui...")
+    st.sidebar.header("🤖 Inteligência Artificial")
+    
+    # Tutorial de ajuda acoplado diretamente na interface
+    with st.sidebar.expander("🔑 Como conseguir sua chave gratuita?"):
+        st.markdown("""
+        É super simples obter uma chave oficial do Google para rodar o assistente:
+        
+        1. **[Clique aqui para abrir o Google AI Studio](https://aistudio.google.com/)**
+        2. No menu lateral esquerdo, localize e clique no botão com o ícone de chave **`🔑 Get API Key`** (ou no canto superior).
+        3. Clique no botão azul **"Create API Key"**.
+        4. Selecione um projeto ou clique em criar e copie o código gerado (ele começa com `AIza...`).
+        5. Cole o código no campo de texto abaixo!
+        """)
+        
+    gemini_key = st.sidebar.text_input("Cole aqui sua Chave API do Gemini:", type="password", placeholder="AIzaSy...")
 
     if atleta_selecionado == "Todos":
         st.subheader("📋 Tabela Geral de Resultados")
