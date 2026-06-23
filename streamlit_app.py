@@ -44,11 +44,16 @@ if not df.empty:
     
     st.sidebar.divider()
     st.sidebar.markdown("""
-    ### ♿ Coleta Acessível
+    ### ♿ Coleta Acessível por Voz
     Para atletas com limitação motora severa:
-    1. Abra a planilha no computador.
-    2. Clique na célula desejada.
-    3. Pressione **Windows + H** para ativar a digitação por voz nativa.
+    
+    **Opção 1: Digitação Direta no Campo de Texto**
+    1. Abra a planilha do Google Drive.
+    2. Dê um **duplo clique** na célula ou clique na **barra de fórmulas (campo de texto)** no topo para que o cursor fique ativo.
+    3. Pressione **Windows + H** para abrir o microfone nativo e ditar o valor.
+    
+    **Opção 2: Chat Assistido (Inteligente)**
+    - Clique na barra de entrada de texto do painel assistente do Workspace à direita, digite ou dite o comando de inserção de dados e ele aplicará o valor diretamente na célula desejada!
     """)
 
     if atleta_selecionado == "Todos":
